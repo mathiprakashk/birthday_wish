@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            position: relative;
+        }
+        /* Style for the GIF */
+        .gif-container {
+            width: 200px;
+            height: 200px; /* Set height and width to make it a circle */
+            margin-bottom: 50px;
+            border-radius: 50%; /* Make it a circle */
+            overflow: hidden; 
+        }
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire container */
+        }
+        .mailbox {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            background: #c12060;
+            border-radius: 5px;
+            margin: 0 auto;
+            cursor: pointer;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .mailbox::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            width: 100px;
+            height: 30px;
+            background: #9c1d4f;
+            transform: translateX(-50%);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .mailbox::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 10px;
+            height: 70px;
+            background: #9c1d4f;
+        }
+        .letter {
+            position: absolute;
+            bottom: -120px; /* Initially hide below the mailbox */
+            left: 50%;
+            width: 150px;
+            height: 100px;
+            background: #fff;
+            color: #333;
+            text-align: left;
+            padding: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(-50%);
+            border-radius: 5px;
+            display: none; /* Hidden initially */
+        }
+        .letter p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .letter-popup {
+            animation: popup 1s ease-out forwards;
+        }
+        .letter-hide {
+            animation: hidePopup 1s ease-in forwards;
+        }
+        @keyframes popup {
+            from {
+                bottom: -120px;
+                opacity: 0;
+            }
+            to {
+                bottom: 160px;
+                opacity: 1;
+            }
+        }
+        @keyframes hidePopup {
+            from {
+                bottom: 160px;
+                opacity: 1;
+            }
+            to {
+                bottom: -120px;
+                opacity: 0;
+            }
+        }
+
+        /* Button styles */
+        .submit-button {
+            background-color: #c12060; /* Same color as the mailbox */
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #9c1d4f; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- GIF container -->
+    <div class="gif-container">
+        <img src="hi.gif" alt="Birthday GIF">
+    </div>
+    
+    <div class="container">
+        <!-- Updated mailbox with "Click here" message -->
+        <div class="mailbox" id="mailbox">
+            Click here
+        </div>
+        <div class="letter" id="letter">
+            <p>Dear Friend,</p>
+            <p>🎉 Happy Birthday! May your day be filled with laughter, love, and unforgettable moments 🎂</p>
+        </div>
+    </div>
+    
+    <!-- Submit button aligned correctly and styled -->
+    <div>
+        <a href="page.html">
+            <button class="submit-button">Next</button>
+        </a>
+    </div>
+
+    <script>
+        const mailbox = document.getElementById('mailbox');
+        const letter = document.getElementById('letter');
+
+        let isLetterVisible = false;
+
+        mailbox.addEventListener('click', () => {
+            if (isLetterVisible) {
+                // Hide the letter
+                letter.classList.remove('letter-popup');
+                letter.classList.add('letter-hide');
+                setTimeout(() => {
+                    letter.style.display = 'none';
+                }, 1000); // Wait for the animation to finish before hiding
+            } else {
+                // Show the letter
+                letter.style.display = 'block';
+                letter.classList.remove('letter-hide');
+                letter.classList.add('letter-popup');
+            }
+            isLetterVisible = !isLetterVisible; // Toggle visibility state
+        });
+    </script>
+</body>
+</html>

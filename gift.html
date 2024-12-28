@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4); /* Light gradient background */
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Gift box container */
+        .gift-box-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #c12060;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Gift box lid */
+        .gift-box-lid {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #c12060;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 10px;
+            transition: transform 1s ease-in-out;
+        }
+
+        /* Hidden gift reveal */
+        .gift-reveal {
+            display: none;
+            font-size: 2rem;
+            color: #fff;
+            padding: 20px;
+            background-color: #e94e77;
+            border-radius: 10px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .gift-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 1s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Gift box container -->
+    <div class="gift-box-container" id="giftBox">
+        <div class="gift-box-lid" id="giftBoxLid">Click to Open</div>
+        <div class="gift-reveal" id="giftReveal">
+            <img class="gift-image" src="im.jpg" alt="Gift Image">
+        </div>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const giftBoxLid = document.getElementById('giftBoxLid');
+        const giftReveal = document.getElementById('giftReveal');
+
+        giftBox.addEventListener('click', () => {
+            // Smoothly open the gift box
+            giftBoxLid.style.transform = 'translateY(-100%)'; // Move the lid up
+            giftReveal.style.display = 'flex'; // Show the gift reveal
+
+            // Add a delay for the image transition
+            setTimeout(() => {
+                giftReveal.style.opacity = '1'; // Fade in the gift image
+                const giftImage = document.querySelector('.gift-image');
+                giftImage.style.transform = 'scale(1.1)'; // Zoom in the image slightly
+            }, 1000); // Wait for the lid to move
+
+            // Optional: Play a sound or animation on click (if needed)
+        });
+    </script>
+
+</body>
+</html>

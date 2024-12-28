@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4); /* Light gradient background */
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        /* Timer container */
+        .timer-container {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+        /* "Click Here" message */
+        .click-message {
+            background-color: #c12060; /* Same as mailbox color */
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .click-message:hover {
+            background-color: #9c1d4f;
+        }
+        /* Transition screen effect */
+        .transition-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #c12060, #e94e77, #ff74a6); /* Gradient from dark pink to lighter pink */
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 2s ease-in-out;
+        }
+        /* Image container and size */
+        .image-container {
+            max-width: 100px; /* Fixed size for image container */
+            overflow: hidden; /* Hide any image overflow */
+            margin-bottom: 20px; /* Space between image and timer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Image display */
+        .cute-image {
+            width: 100%; /* Scale the image to fit container */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h3>Heyyy Lusuuu!!</h3>
+    </div>
+
+    <!-- Image container (above the timer) -->
+    <div class="image-container">
+        <img class="cute-image" id="cuteImage" src="images/download.jpg" alt="Cute Image">
+    </div>
+
+    <!-- Timer container and Click Here message -->
+    <div class="timer-container">
+        <div id="timer">10</div>
+        <button class="click-message" id="startTimer">Click Here</button>
+    </div>
+
+    <!-- Transition screen -->
+    <div class="transition-screen" id="transitionScreen"></div>
+
+    <script>
+        const timerDisplay = document.getElementById('timer');
+        const startButton = document.getElementById('startTimer');
+        const transitionScreen = document.getElementById('transitionScreen');
+        const cuteImage = document.getElementById('cuteImage');
+        const imageContainer = document.getElementById('imageContainer');
+        let countdown;
+        
+        // Array of cute images to cycle through
+        const cuteImages = [
+          "images/download.jpg", // Cat image 1
+            "images/images_1.jpg", // Cat image 2
+            "images/images_2.jpg", // Cat image 3
+            "images/images_3.jpg", // Cat image 4
+            "images/images_4.jpg"
+        ];
+
+        let imageIndex = 0;
+
+        startButton.addEventListener('click', () => {
+            let timeLeft = 10; // 10-second timer
+
+            // Update the button to indicate timer has started
+            startButton.disabled = true;
+            startButton.textContent = 'Timer Started...';
+
+            // Start the countdown
+            countdown = setInterval(() => {
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown); // Stop the timer
+                    triggerTransition(); // Trigger the page transition after 10 seconds
+                }
+                timeLeft--;
+            }, 1000); // Update every 1 second
+
+            // Start displaying cute images every 2 seconds
+            const imageInterval = setInterval(() => {
+                cuteImage.src = cuteImages[imageIndex];
+                imageIndex = (imageIndex + 1) % cuteImages.length; // Cycle through images
+            }, 2000);
+
+            // Stop the image change after the countdown is over
+            setTimeout(() => {
+                clearInterval(imageInterval);
+            }, 10000); // Stop after 10 seconds
+        });
+
+        function triggerTransition() {
+            // Trigger the "theater screen" effect
+            transitionScreen.style.transform = 'scaleX(1)';
+
+            // After the transition, move to the next page (simulated here)
+            setTimeout(() => {
+                window.location.href = "home.html"; // Replace with your actual next page URL
+            }, 2000); // Wait for the transition to complete
+        }
+    </script>
+
+</body>
+</html>
